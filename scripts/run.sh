@@ -14,6 +14,5 @@ curl -fsSL "$PACKAGE_URL" -o package.tgz
 npm install package.tgz
 popd
 
-npx --prefix=$TEMP_DIR spawn-react-app
-
+npx --prefix=$TEMP_DIR ghfz
 rm -rf "$TEMP_DIR"

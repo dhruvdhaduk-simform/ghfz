@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "A fuzzy finder CLI tool for GitHub repos.",
     "bin": {
-        "spawn-react-app": "dist/src/index.js"
+        "ghfz": "dist/src/index.js"
     },
     "files": [
         "dist"
