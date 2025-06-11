@@ -8,7 +8,7 @@ import { registerFzf } from './actions/fzf';
 const y = yargs(hideBin(process.argv))
     .scriptName('ghfz')
     .usage('$0 <cmd> [args]')
-    .version();
+    .version('v0.0.5');
 
 registerFzf(y);
 
