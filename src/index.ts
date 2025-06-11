@@ -5,7 +5,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { registerFzf } from './actions/fzf';
 
-let y = yargs(hideBin(process.argv))
+const y = yargs(hideBin(process.argv))
     .scriptName('ghfz')
     .usage('$0 <cmd> [args]');
 
