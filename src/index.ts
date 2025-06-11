@@ -9,7 +9,7 @@ import { registerAdd } from './actions/add';
 const y = yargs(hideBin(process.argv))
     .scriptName('ghfz')
     .usage('$0 <cmd> [args]')
-    .version('v0.0.5');
+    .version('v0.0.6');
 
 registerFzf(y);
 registerAdd(y);
