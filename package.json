@@ -37,6 +37,7 @@
         "typescript": "^5.8.3"
     },
     "dependencies": {
+        "env-paths": "^3.0.0",
         "open": "^10.1.2"
     }
 }
