@@ -76,3 +76,20 @@ export function addRepos(username: string, repoNames: Array<string>) {
     fs.writeFileSync(USERS_PATH, JSON.stringify(users));
     fs.writeFileSync(REPOS_PATH, JSON.stringify(repos));
 }
+
+export function removeRepos(users: Array<string>) {
+    const usersStored = getUsers();
+
+    const usersFiltered = usersStored.filter(
+        (username) => !users.includes(username)
+    );
+
+    const repos = getRepos();
+
+    const reposFiltered = repos.filter((repo) =>
+        usersFiltered.includes(repo.username)
+    );
+
+    fs.writeFileSync(USERS_PATH, JSON.stringify(usersFiltered));
+    fs.writeFileSync(REPOS_PATH, JSON.stringify(reposFiltered));
+}
