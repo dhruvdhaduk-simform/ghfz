@@ -10,5 +10,5 @@ cp "$SOURCE_DIR/run.sh" "$DIST_DIR"
 
 pushd "$SOURCE_DIR/.."
 npm pack
-mv spawn-react-app*.tgz "$DIST_DIR/spawn-react-app.tgz"
+mv ghfz*.tgz "$DIST_DIR/ghfz.tgz"
 popd
