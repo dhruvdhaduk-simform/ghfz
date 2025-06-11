@@ -10,7 +10,7 @@ import { registerRemove } from './actions/remove';
 const y = yargs(hideBin(process.argv))
     .scriptName('ghfz')
     .usage('$0 <cmd> [args]')
-    .version('v0.0.6');
+    .version('v0.0.7');
 
 registerFzf(y);
 registerAdd(y);
