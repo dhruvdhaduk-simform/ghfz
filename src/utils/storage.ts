@@ -9,12 +9,18 @@ const DATA_PATH = paths.data;
 
 if (!fs.existsSync(DATA_PATH)) {
     fs.mkdirSync(DATA_PATH);
+    fs.copyFileSync(
+        path.join(__dirname, '..', '..', 'MockData', 'users.json'),
+        path.join(DATA_PATH, 'users.json')
+    );
+    fs.copyFileSync(
+        path.join(__dirname, '..', '..', 'MockData', 'repos.json'),
+        path.join(DATA_PATH, 'repos.json')
+    );
 }
 
 const USERS_PATH = path.join(DATA_PATH, 'users.json');
 const REPOS_PATH = path.join(DATA_PATH, 'repos.json');
-
-console.log(paths.data);
 
 export function getUsers(): Array<string> {
     let data: unknown;

@@ -10,8 +10,9 @@
     ],
     "scripts": {
         "clean": "rm -rf dist",
-        "build": "npm run clean && npx tsc",
-        "dev": "npm run clean && npx tsc --watch",
+        "copy-mockdata": "mkdir -p dist && cp -r MockData dist",
+        "build": "npm run clean && npm run copy-mockdata && npx tsc",
+        "dev": "npm run clean && npm run copy-mockdata && npx tsc --watch",
         "start": "node dist/src/index.js",
         "pack": "npm run build && bash ./scripts/pack.sh",
         "format": "prettier . --write"

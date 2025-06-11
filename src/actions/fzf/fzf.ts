@@ -1,6 +1,7 @@
 import { spawn } from 'child_process';
 import open from 'open';
 import type { Repo } from '../../types/repo';
+import { getRepos } from '../../utils/storage';
 
 function getFormattedRepo(repo: Repo) {
     return `${repo.username} → ${repo.reponame}`;
@@ -43,36 +44,7 @@ function fzfGitHub(options: Array<Repo>): Promise<string | null> {
 
 // Example usage
 export async function startFuzzyFind() {
-    const repos: Array<Repo> = [
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'ghfz',
-        },
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'spawn-react-app',
-        },
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'tic-tac-toe-term',
-        },
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'img-magnifier-extension',
-        },
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'live-stream-demo',
-        },
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'x-skeleton-ui',
-        },
-        {
-            username: 'dhruvdhaduk-simform',
-            reponame: 'fair-share',
-        },
-    ];
+    const repos = getRepos();
 
     const selected = await fzfGitHub(repos);
     if (selected) {
