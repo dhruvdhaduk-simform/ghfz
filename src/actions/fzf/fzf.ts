@@ -1,10 +1,6 @@
 import { spawn } from 'child_process';
 import open from 'open';
-
-interface Repo {
-    username: string;
-    reponame: string;
-}
+import type { Repo } from '../../types/repo';
 
 function getFormattedRepo(repo: Repo) {
     return `${repo.username} → ${repo.reponame}`;
