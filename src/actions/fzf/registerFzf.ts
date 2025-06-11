@@ -1,6 +1,7 @@
 import type { Argv } from 'yargs';
 
 import { startFuzzyFind } from './fzf';
+import { logError } from '../../utils/logger';
 
 export function registerFzf(yargs: Argv) {
     yargs.command(
@@ -9,7 +10,7 @@ export function registerFzf(yargs: Argv) {
         () => {},
         (argv) => {
             if (argv._.length) {
-                console.log('Invalid command. Use --help to show options.');
+                logError('Invalid command. Use --help to show options.');
             } else {
                 startFuzzyFind();
             }
