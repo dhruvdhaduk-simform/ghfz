@@ -1,6 +1,6 @@
 {
     "name": "ghfz",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A fuzzy finder CLI tool for GitHub repos.",
     "bin": {
         "ghfz": "dist/src/index.js"
