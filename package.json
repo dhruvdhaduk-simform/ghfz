@@ -1,0 +1,39 @@
+{
+    "name": "ghfz",
+    "version": "0.0.1",
+    "description": "A fuzzy finder CLI tool for GitHub repos.",
+    "bin": {
+        "spawn-react-app": "dist/src/index.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "clean": "rm -rf dist",
+        "build": "npm run clean && npx tsc",
+        "dev": "npm run clean && npx tsc --watch",
+        "start": "node dist/src/index.js",
+        "pack": "npm run build && bash ./scripts/pack.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dhruvdhaduk-simform/ghfz.git"
+    },
+    "keywords": [
+        "cli",
+        "fuzzy",
+        "finder",
+        "github",
+        "repository"
+    ],
+    "author": "Dhruv Dhaduk",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dhruvdhaduk-simform/ghfz/issues"
+    },
+    "homepage": "https://github.com/dhruvdhaduk-simform/ghfz#readme",
+    "devDependencies": {
+        "@types/node": "^22.15.3",
+        "typescript": "^5.8.3"
+    }
+}
