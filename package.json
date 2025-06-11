@@ -13,7 +13,8 @@
         "build": "npm run clean && npx tsc",
         "dev": "npm run clean && npx tsc --watch",
         "start": "node dist/src/index.js",
-        "pack": "npm run build && bash ./scripts/pack.sh"
+        "pack": "npm run build && bash ./scripts/pack.sh",
+        "format": "prettier . --write"
     },
     "repository": {
         "type": "git",
@@ -36,6 +37,7 @@
         "@types/node": "^22.15.3",
         "@types/prompts": "^2.4.9",
         "@types/yargs": "^17.0.33",
+        "prettier": "^3.5.3",
         "typescript": "^5.8.3"
     },
     "dependencies": {
