@@ -1,0 +1,1 @@
+export { registerAuth } from './registerAuth';
