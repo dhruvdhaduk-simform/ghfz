@@ -1,6 +1,10 @@
 import prompts from 'prompts';
 import { logError, logSuccess } from '../../utils/logger';
-import { getGitHubToken, removeGitHubToken, setGitHubToken } from '../../utils/storage';
+import {
+    getGitHubToken,
+    removeGitHubToken,
+    setGitHubToken,
+} from '../../utils/storage';
 
 export async function authAction() {
     const actionSelectResponse = await prompts({
@@ -39,7 +43,7 @@ export function authActionShowPAT() {
         return;
     }
 
-    logSuccess('Your GitHub Personal Access Token is :'); 
+    logSuccess('Your GitHub Personal Access Token is :');
     console.log(token);
 }
 
