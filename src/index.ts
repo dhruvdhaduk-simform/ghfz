@@ -12,7 +12,7 @@ import { registerAuth } from './actions/auth';
 const y = yargs(hideBin(process.argv))
     .scriptName('ghfz')
     .usage('$0 <cmd> [args]')
-    .version('v0.0.9');
+    .version('v1.0.0');
 
 registerFzf(y);
 registerAdd(y);
