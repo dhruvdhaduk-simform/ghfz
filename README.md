@@ -208,4 +208,4 @@ This project leverages the power of the following open source tools and librarie
 
 ## Support
 
-For questions or feedback, please open an issue or contact `dhruv.dhaduk@example.com`.
+For questions or feedback, please open an issue or contact `dhruv.dhaduk@simformsolutions.com`.
