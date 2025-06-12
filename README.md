@@ -19,6 +19,7 @@ A blazing fast CLI tool to fuzzy find GitHub repositories directly from your ter
   - [Fuzzy Search](#fuzzy-search)
   - [Commands](#commands)
 - [Configuration](#configuration)
+- [Rate Limiting](#rate-limiting)
 - [Data Storage](#data-storage)
 - [Development](#development)
 - [Packaging](#packaging)
@@ -141,6 +142,23 @@ Your GitHub PAT is stored at:
 # Linux
 ~/.config/ghfz-nodejs/github_pat.txt
 ```
+
+## Rate Limiting
+
+GitHub API limits unauthenticated requests to 60 per hour. When you encounter HTTP 403 errors due to rate limits, authenticate with a GitHub Personal Access Token (PAT) to increase your limit to 5,000 requests per hour.
+
+1. Generate a PAT:
+   - Visit https://github.com/settings/tokens
+   - Click **Generate new token (classic)**, provide a name, select the `repo` scope (or others as needed), and generate your token.
+   - Copy the generated token.
+2. Authenticate with ghfz:
+```bash
+ghfz auth
+```
+When prompted, paste your PAT. The token is stored securely and used for subsequent API requests.
+
+For more details, see GitHub's documentation:
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
 ## Data Storage
 
