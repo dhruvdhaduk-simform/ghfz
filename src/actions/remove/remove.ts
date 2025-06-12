@@ -22,6 +22,7 @@ export async function removeAction() {
         instructions: false,
         hint: '- Space to select. Return to submit',
     });
+    console.log();
 
     if (!removeUsersResponse.users) {
         logError('Aborted.');
