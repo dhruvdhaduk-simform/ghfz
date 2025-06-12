@@ -1,22 +1,26 @@
 import { spawn } from 'child_process';
 import open from 'open';
 import type { Repo } from '../../types/repo';
-import { getRepos } from '../../utils/storage';
+import { getRepos, getUsers } from '../../utils/storage';
 
-function getFormattedRepo(repo: Repo) {
-    return `${repo.username} → ${repo.reponame}`;
+export async function fzfAction() {
+    const users = getUsers();
+    const repos = getRepos();
+
+    const selected = await fzfGitHub(users, repos);
+    if (selected) {
+        open(selected);
+    } else {
+        console.log('No selection.');
+    }
 }
 
-function getRepoURL(repo: Repo) {
-    return `https://github.com/${repo.username}/${repo.reponame}`;
-}
-
-function fzfGitHub(options: Array<Repo>): Promise<string | null> {
+function fzfGitHub(
+    users: Array<string>,
+    repos: Array<Repo>
+): Promise<string | null> {
     return new Promise((resolve) => {
-        // Format: 'label<TAB>value'
-        const formatted = options.map((item) => {
-            return `${getFormattedRepo(item)}\t${getRepoURL(item)}`;
-        });
+        const formatted = [...formatUsers(users), '', ...formatRepos(repos)];
 
         const fzf = spawn('fzf', ['--with-nth=1', '--delimiter=\t'], {
             stdio: ['pipe', 'pipe', 'inherit'],
@@ -42,14 +46,32 @@ function fzfGitHub(options: Array<Repo>): Promise<string | null> {
     });
 }
 
-// Example usage
-export async function startFuzzyFind() {
-    const repos = getRepos();
+function formatUsers(users: Array<string>): Array<string> {
+    const usersHomePage: Array<string> = [];
+    const usersRepoPage: Array<string> = [];
 
-    const selected = await fzfGitHub(repos);
-    if (selected) {
-        open(selected);
-    } else {
-        console.log('No selection.');
-    }
+    users.forEach((user) => {
+        usersHomePage.push(`${user}\thttps://github.com/${user}`);
+        usersRepoPage.push(
+            `${user} → repositories\thttps://github.com/${user}?tab=repositories`
+        );
+    });
+
+    return [...usersHomePage, '', ...usersRepoPage];
+}
+
+function formatRepos(repos: Array<Repo>): Array<string> {
+    const reposFormatted: Array<string> = [];
+    const repoPullsFormatted: Array<string> = [];
+
+    repos.forEach((repo) => {
+        reposFormatted.push(
+            `${repo.username} → ${repo.reponame}\thttps://github.com/${repo.username}/${repo.reponame}`
+        );
+        repoPullsFormatted.push(
+            `${repo.username} → ${repo.reponame} → pulls\thttps://github.com/${repo.username}/${repo.reponame}/pulls`
+        );
+    });
+
+    return [...reposFormatted, ...repoPullsFormatted];
 }
