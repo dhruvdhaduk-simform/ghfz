@@ -7,6 +7,9 @@ A blazing fast CLI tool to fuzzy find GitHub repositories directly from your ter
 ![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/ghfz)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/dhruvdhaduk-simform/ghfz/publish.yml)
 
+
+![Demo](assets/demo.gif)
+
 ## Table of Contents
 
 - [Features](#features)
