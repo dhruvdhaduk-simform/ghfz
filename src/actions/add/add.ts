@@ -30,9 +30,16 @@ export async function addAction() {
     const username: string = usernameResponse.username;
 
     let repoNames: Array<string>;
+    let totalRateLimit: number | undefined;
+    let remainingRateLimit: number | undefined;
     try {
         console.log('Fetching the repos from GitHub API . . . ');
-        repoNames = await fetchRepos(username);
+        const response = await fetchRepos(username);
+        repoNames = response.data;
+        if (response.rateLimits) {
+            totalRateLimit = response.rateLimits.total;
+            remainingRateLimit = response.rateLimits.remaining;
+        }
     } catch (err: unknown) {
         if (err instanceof Error) logError(err.message);
         else logError(String(err));
@@ -45,6 +52,14 @@ export async function addAction() {
     }
 
     logSuccess('Repos fetch successfully.');
+    if (totalRateLimit && remainingRateLimit) {
+        console.log(`API Rate limit : ${remainingRateLimit}/${totalRateLimit}`);
+        if (totalRateLimit < 100) {
+            console.log(
+                'Please consider adding GitHub PAT to increase limits.'
+            );
+        }
+    }
 
     try {
         addRepos(username, repoNames);

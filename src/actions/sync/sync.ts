@@ -5,20 +5,28 @@ import { userNameListSchema } from '../../utils/validations';
 import { fetchRepos } from '../../utils/fetch';
 
 async function syncUsers(users: Array<string>) {
+    let totalRateLimit: number | undefined;
+    let remainingRateLimit: number | undefined;
+
     for (const user of users) {
         console.log();
         try {
             console.log(`Fetching data for ${user} . . .`);
-            const repos = await fetchRepos(user);
+            const response = await fetchRepos(user);
+            const repos = response.data;
+            if (response.rateLimits) {
+                totalRateLimit = response.rateLimits.total;
+                remainingRateLimit = response.rateLimits.remaining;
+            }
+
             if (!repos.length) {
                 logError('No repos found for this username');
                 continue;
-            }
-            else {
+            } else {
                 logSuccess(`Repos fetch successfully for ${user}`);
             }
             addRepos(user, repos);
-            logSuccess(`Repos of ${user} added to database successfully.`)
+            logSuccess(`Repos of ${user} added to database successfully.`);
         } catch (err) {
             if (err instanceof Error) logError(err.message);
             else logError(String(err));
@@ -27,6 +35,15 @@ async function syncUsers(users: Array<string>) {
 
     console.log();
     logSuccess('Operation Completed.');
+
+    if (totalRateLimit && remainingRateLimit) {
+        console.log(`API Rate limit : ${remainingRateLimit}/${totalRateLimit}`);
+        if (totalRateLimit < 100) {
+            console.log(
+                'Please consider adding GitHub PAT to increase limits.'
+            );
+        }
+    }
 }
 
 export async function syncAction(syncAll: boolean = false) {

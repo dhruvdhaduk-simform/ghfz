@@ -6,6 +6,7 @@ import { Repo } from '../types/repo';
 
 const paths = envPaths('ghfz');
 const DATA_PATH = paths.data;
+const CONFIG_PATH = paths.config;
 
 if (!fs.existsSync(DATA_PATH)) {
     fs.mkdirSync(DATA_PATH);
@@ -19,8 +20,14 @@ if (!fs.existsSync(DATA_PATH)) {
     );
 }
 
+if (!fs.existsSync(CONFIG_PATH)) {
+    fs.mkdirSync(CONFIG_PATH);
+}
+
 const USERS_PATH = path.join(DATA_PATH, 'users.json');
 const REPOS_PATH = path.join(DATA_PATH, 'repos.json');
+
+const GITHUB_PAT_PATH = path.join(CONFIG_PATH, 'github_pat.txt');
 
 export function getUsers(): Array<string> {
     let data: unknown;
@@ -92,4 +99,31 @@ export function removeRepos(users: Array<string>) {
 
     fs.writeFileSync(USERS_PATH, JSON.stringify(usersFiltered));
     fs.writeFileSync(REPOS_PATH, JSON.stringify(reposFiltered));
+}
+
+export function getGitHubToken(): string | null {
+    let data: unknown;
+
+    try {
+        if (fs.existsSync(GITHUB_PAT_PATH)) {
+            data = fs.readFileSync(GITHUB_PAT_PATH).toString();
+        }
+    } catch (err) {}
+
+    if (typeof data === 'string') {
+        const token = data.trim();
+        if (token) {
+            return token;
+        }
+    }
+
+    return null;
+}
+
+export function setGitHubToken(token: string) {
+    fs.writeFileSync(GITHUB_PAT_PATH, token);
+}
+
+export function removeGitHubToken() {
+    fs.rmSync(GITHUB_PAT_PATH);
 }
